@@ -1,0 +1,42 @@
+from PyQt5.QtCore import*
+from PyQt5.QtWidgets import*
+from PyQt5.QtGui import* 
+import math
+import sys as _s
+
+class mainClock(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update)
+        self.timer.start(1)
+
+        self.k = 0
+
+    def paintEvent(self,a0):
+        painter = QPainter(self)
+        pen = QPen(QColor('red'),10)
+        painter.setPen(pen)
+
+        rect = self.rect().adjusted(20,20,-20,-20).center()  #diktörtgen oluşturur x1,y1 koordinat x2,y2 ise genişlik,yüksekliktir 
+
+        radius = 100        #çizginin yarıçapı
+        rad = math.radians(self.k)  #radyans fonksiyonu ile artış gösteren self.k değişkeninin radyansını alıyoruz
+
+        cx = rect.x()  #diktdörtgenimizin x genişliğini alıyoruz
+        cy = rect.y()  #diktdörtgenimizin y yüksekliğini alıyoruz 
+
+        x = cx + (radius * math.cos(rad))  #burada genişlik + (cizgi_yaricapi * cos(radyans)) şeklinde x ekseni belirleniyor
+        y = cy + (radius * math.sin(rad))  #burada ise yukarıdakinin aynını y eksenine uyguluyoruz..
+
+        painter.drawLine(rect,QPointF(x,y))  #burada zaten rect = center o yüzden painter.drawLine(merkez,QPointF(x,y)) = (genislik,yükseklik,koordinat_x,koordinat_y) şekline olur. genislik sabit kalırken koordinat sürekli değişkenlik gösterir y koordinatı sabit kalırken x koordinatı trigonometrik düzlemde hareket gösterir 
+
+        self.k += 1  #burada başta = 0 olan self.k değişkenini += 1 ile artış göstermesini sağlıyoruz..
+
+if __name__ == "__main__":
+    app = QApplication(_s.argv)
+    window = mainClock()
+    window.show()
+    _s.exit(app.exec_())
+
+#
