@@ -18,7 +18,7 @@ class mainClock(QWidget):
         pen = QPen(QColor('red'),10)
         painter.setPen(pen)
 
-        rect = self.rect().adjusted(20,20,-20,-20).center()  #diktörtgen oluşturur x1,y1 koordinat x2,y2 ise genişlik,yüksekliktir 
+        rect = self.rect().adjusted(20,20,-20,-20).center()  #diktörtgen oluşturur x1,y1 koordinat x2,y2 ise genişlik,yüksekliktir (DAİREYİ ÇİZMEZ SONDAKİ FONKSİYONLAR YÜZÜNDEN SADECE MERKEZİ ALIR)
 
         radius = 100        #çizginin yarıçapı
         rad = math.radians(self.k)  #radyans fonksiyonu ile artış gösteren self.k değişkeninin radyansını alıyoruz
